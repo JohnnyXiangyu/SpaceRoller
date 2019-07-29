@@ -18,6 +18,7 @@ There will be multiple levels, of different diffculty levels and style, and a va
     * gravity magnitude: ???  
     * jump when there is gravity and running over a gap  
     * zero gravity zone in some levels  
+    
 (more to add here)  
 
 # Architecture  
