@@ -1,5 +1,5 @@
 # General
-This is an open source, Javascript game using Kontra.js  
+This is an open source, Javascript game using [Kontra.js](https://github.com/straker/kontra)  
 Main gameplay is focused on a roller-coaster system, on which the player will play with acceleration and brakes, both of which use a certain amount of limited resources.  
 There will be multiple levels, of different diffculty levels and style, and a vague storyline that drives the gameplay.  
   
