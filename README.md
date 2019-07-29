@@ -6,18 +6,18 @@ There will be multiple levels, of different diffculty levels and style, and a va
 # Physical System  
 //no class allowed  
 {ddx, ddy} getAcceleration( {conditions} )  
-    conditions:  
-        - slope  
-        - current speed  
+    > conditions:  
+        >> slope  
+        >> current speed  
     intended effects:  
-        - slow down on a uphill  
-        - speed up on downhill  
-        - maintain/tiny slow down on plain terrain  
-        - jump and gravity:  
-            . gravity downward (how to explain?)  
-            . gravity magnitude: ???  
-            . jump when there is gravity and running over a gap  
-            . zero gravity zone in some levels  
+        >> slow down on a uphill  
+        >> speed up on downhill  
+        >> maintain/tiny slow down on plain terrain  
+        >> jump and gravity:  
+            >>> gravity downward (how to explain?)  
+            >>> gravity magnitude: ???  
+            >>> jump when there is gravity and running over a gap  
+            >>> zero gravity zone in some levels  
 (more to add here)  
 
 # Architecture  
