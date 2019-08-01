@@ -31,7 +31,7 @@ intended effects:
     
 (more to add here)  
 
-# Architecture  
+# Designs  
 Levels:  
   
 Terrain:  
@@ -45,3 +45,4 @@ Controlling:
   
 Story line:  
   
+# Architecture  

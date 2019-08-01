@@ -1,14 +1,12 @@
 import { init, GameLoop, Sprite } from './engine/kontra.mjs';
 import { initKeys, bindKeys } from './engine/kontra.mjs';
 
-(function() {
+(function () {
   let { canvas, context } = init();
 
-  canvas.fillStyle = 'black'
-
   initKeys();
-  var arrows = [37,38,39,40];
-  canvas.addEventListener('keydown', function(e) {
+  var arrows = [37, 38, 39, 40];
+  canvas.addEventListener('keydown', function (e) {
     if (arrows.indexOf(e.which) !== -1) {
       e.preventDefault();
     }
@@ -58,7 +56,7 @@ import { initKeys, bindKeys } from './engine/kontra.mjs';
       color: 'green',
       cells: [],
       maxCells: 4,
-      update: function() {
+      update: function () {
         this.advance();
 
         // wrap snake position on edge of screen
@@ -76,7 +74,7 @@ import { initKeys, bindKeys } from './engine/kontra.mjs';
         }
 
         // keep track of where snake has been. front of the array is always the head
-        this.cells.unshift({x: this.x, y: this.y});
+        this.cells.unshift({ x: this.x, y: this.y });
         var cellIndex = freeCells.indexOf(this.y / grid * numCols + this.x / grid);
         freeCells.splice(cellIndex, 1)
 
@@ -87,7 +85,7 @@ import { initKeys, bindKeys } from './engine/kontra.mjs';
         }
 
         // check for collision with apple or body
-        this.cells.forEach(function(cell, index) {
+        this.cells.forEach(function (cell, index) {
 
           // snake ate apple, only the front of the snake can eat an apple
           if (index === 0 && cell.x === apple.x && cell.y === apple.y) {
@@ -107,11 +105,11 @@ import { initKeys, bindKeys } from './engine/kontra.mjs';
           }
         }.bind(this));
       },
-      render: function() {
+      render: function () {
         this.context.fillStyle = this.color;
 
-        this.cells.forEach(function(cell) {
-          this.context.fillRect(cell.x, cell.y, grid-1, grid-1);
+        this.cells.forEach(function (cell) {
+          this.context.fillRect(cell.x, cell.y, grid - 1, grid - 1);
         }.bind(this));
       }
     });
@@ -121,33 +119,33 @@ import { initKeys, bindKeys } from './engine/kontra.mjs';
       x: pos.x,
       y: pos.y,
       color: 'red',
-      width: grid-1,
-      height: grid-1
+      width: grid - 1,
+      height: grid - 1
     });
   }
 
   // we don't want the controls to update at 15fps so we'll update the movement
   // outside the game loop for more tight feeling controls
-  bindKeys('left', function() {
+  bindKeys('left', function () {
     // prevent snake from backtracking on itself
     if (snake.dx === 0) {
       snake.dx = -grid;
       snake.dy = 0;
     }
   });
-  bindKeys('up', function() {
+  bindKeys('up', function () {
     if (snake.dy === 0) {
       snake.dy = -grid;
       snake.dx = 0;
     }
   });
-  bindKeys('right', function() {
+  bindKeys('right', function () {
     if (snake.dx === 0) {
       snake.dx = grid;
       snake.dy = 0;
     }
   });
-  bindKeys('down', function() {
+  bindKeys('down', function () {
     if (snake.dy === 0) {
       snake.dy = grid;
       snake.dx = 0;
@@ -156,10 +154,10 @@ import { initKeys, bindKeys } from './engine/kontra.mjs';
 
   var loop = GameLoop({
     fps: 15,  // snake plays great at 15fps
-    update: function() {
+    update: function () {
       snake.update();
     },
-    render: function() {
+    render: function () {
       apple.render();
       snake.render();
     }
