@@ -1,48 +1,95 @@
 import { init, GameLoop, Sprite } from './engine/kontra.mjs';
 import { initKeys, keyPressed } from './engine/kontra.mjs';
+import { initPointer, track, untrack } from './engine/kontra.mjs';
+import { pointerOver } from './engine/kontra.mjs';
+import { pointerPressed } from './engine/kontra.mjs';
 
 console.log('import success')
 
 let { canvas } = init();
 initKeys();
+initPointer();
 
-let sprite = Sprite({
-    x: 100,        // starting x,y position of the sprite
-    y: 80,
-    color: 'red',  // fill color of the sprite rectangle
-    width: 20,     // width and height of the sprite rectangle
-    height: 40,
-    dx: 2          // move the sprite 2px to the right every frame
-});
-
-let loop = GameLoop({  // create the main game loop
-    update: function () { // update the game state
-        if (keyPressed('w') && sprite.dx <= 10) {
-            sprite.dx += 1;
+let startButton = Sprite({
+    x: 350,        // starting x,y position of the sprite
+    y: 400,
+    color: 'green',  // fill color of the sprite rectangle
+    width: 100,     // width and height of the sprite rectangle
+    height: 20,
+    dx: 0,          // move the sprite 2px to the right every frame
+    onOver: function() {
+        startButton.color = 'blue';
+    }, 
+    onDown: function() {
+        if (pointerPressed('left')) {
+            startButton.color = 'brown';
+            startScreen.stop();
+            firstLevel.start();
+            untrack(startButton);
         }
-        else if (keyPressed('s') && sprite.dx >= 0) {
-            sprite.dx -= 0.5;
-        }
-        else {
-            if (sprite.dx > 2)
-                sprite.dx -= 1;
-            if (sprite.dx < 2)
-                sprite.dx += 1;
-        }
-        sprite.update();
-
-        // wrap the sprites position when it reaches
-        // the edge of the screen
-        if (sprite.x > canvas.width) {
-            sprite.x = -sprite.width;
-        }
-        if (sprite.x < -sprite.width) {
-            sprite.x = canvas.width + sprite.width;
-        }
-    },
-    render: function () { // render the game state
-        sprite.render();
+    }, 
+    onUp: function() {
+        if (startButton.color == 'brown')
+            startButton.color = 'blue';
     }
 });
 
-loop.start();    // start the game
+let firstSprite = Sprite({
+    x: 100,
+    y: 100,
+    color: 'red',
+    width: 50,
+    height: 50
+});
+
+track(startButton);
+
+let startScreen = GameLoop({  // create the main game loop
+    update: function () { // update the game state
+        if (!pointerOver(startButton))
+            startButton.color = 'green';
+
+        startButton.update();        
+    },
+    render: function () { // render the game state
+        startButton.render();
+    }
+});
+
+let firstLevel = GameLoop({
+    update: function() {
+        if (keyPressed('w'))
+            firstSprite.dy = -2;
+        if (keyPressed('s'))
+            firstSprite.dy = 2;
+        if (!keyPressed('w') && !keyPressed('s'))
+            firstSprite.dy = 0;
+        if (keyPressed('a'))
+            firstSprite.dx = -2;
+        if (keyPressed('d'))
+            firstSprite.dx = 2;
+        if (!keyPressed('a') && !keyPressed('d'))
+            firstSprite.dx = 0;
+
+        if (firstSprite.x > canvas.width) {
+            firstSprite.x = -firstSprite.width;
+        }
+        if (firstSprite.x < -firstSprite.width) {
+            firstSprite.x = canvas.width;
+        }
+
+        if (firstSprite.y > canvas.height) {
+            firstSprite.y = -firstSprite.height;
+        }
+        if (firstSprite.y < -firstSprite.height) {
+            firstSprite.y = canvas.height;
+        }
+
+        firstSprite.update();
+    },
+    render: function() {
+        firstSprite.render();
+    }
+})
+
+startScreen.start();    // start the game
