@@ -1,0 +1,1 @@
+//defines a group of objects with some status of the player cart

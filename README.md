@@ -4,8 +4,14 @@ Main gameplay is focused on a roller-coaster system, on which the player will pl
 There will be multiple levels, of different diffculty levels and style, and a vague storyline that drives the gameplay.  
 This file contains spec info. Develop log is in separate folders.  
 
+Plaase do not put resource file directly into ./code directory.  
+
 # Folder Structure  
 code: source codes for the game, including index.html and js files  
+* engine: contains the kontra module file
+* modules: modules that we write  
+* asssets: assets  
+
 resources: all resource files go here  
 * art: art work that's gonna be directly used in the game  
 * documents: all documents that's related to development process, including art work used for inspiration  
@@ -46,3 +52,10 @@ Controlling:
 Story line:  
   
 # Architecture  
+Some modules will be created, only to classify algorithms during development. The actual production might just use single file to save space.  
+* Player: defines a group of objects with some status of the player cart  
+* background: background objects should be created here  
+* physics: physical algorithms  
+* Tracks: defines an group of objects with definition of tracks  
+
+(to be added: classes)
